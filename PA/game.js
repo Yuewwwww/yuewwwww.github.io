@@ -251,6 +251,25 @@ The user moves a cube around the board trying to knock balls into a cone
 		)
 	}
 
+	function fallingWin(){
+		var win = createBall(0xFEE9FF);
+		win.position.set(randN(70)-10,30,randN(70)-10);
+		win.name = "angel"
+		scene.add(win);
+
+		win.addEventListener( 'collision',
+			function( other_object, relative_velocity, relative_rotation, contact_normal ) {
+				if (other_object==avatar){
+					console.log("Winning ball hit the avatar")
+					soundEffect('good.wav')
+					gameState.score = 10
+					gameState.scene = 'youwon';
+					
+				}
+			}
+		)
+	}
+
 /*	function addTrash(numBalls) {
 		for(i=0; i<numBalls; i++) {
 			var ball = createBall(0xffff7d);
@@ -943,6 +962,13 @@ Changed initial camera and avatar position.
 				if(bonusSpawn==1){
 					console.log("BONUS HEALTH");
 					fallingBonus();
+				}
+
+				var winSpawn = Math.floor(randN(5000))
+
+				if(winSpawn==1){
+					console.log("WIN BALL IS IN PLAY");
+					fallingWin();
 				}
 
 
