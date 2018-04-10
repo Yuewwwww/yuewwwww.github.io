@@ -514,13 +514,26 @@ The user moves a cube around the board trying to knock balls into a cone
 				console.log(JSON.stringify(suzanne.scale));// = new THREE.Vector3(4.0,1.0,1.0);
 				suzanne.position.x = 10;
 				suzanne.position.y = 5;
+				suzanne.position.z = -40;
+				suzanne.castShadow = true;
+				avatarCam.position.set(0,7,-25);
+				avatarCam.lookAt(0,5,0);
+				suzanne.add(avatarCam);
+				scene.add(suzanne);
+				avatar = suzanne;
+
+/*
+Changed initial camera and avatar position.
+	Before change was: 
+				suzanne.position.x = 10;
+				suzanne.position.y = 5;
 				suzanne.position.z = -10;
 				suzanne.castShadow = true;
 				avatarCam.position.set(0,10,0);
 				avatarCam.lookAt(0,4,10);
-				suzanne.add(avatarCam);
-				scene.add(suzanne);
-				avatar = suzanne;
+*/
+
+
 			},
 			function(xhr){
 				console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );
