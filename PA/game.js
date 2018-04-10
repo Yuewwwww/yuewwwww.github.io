@@ -388,6 +388,25 @@ The user moves a cube around the board trying to knock balls into a cone
   	scene.add(wall4);
   }
 
+    function addRoom2(){
+  	var wall1 = createWall(0xFF0000, 10, 20, 1);
+  	var wall2 = createWall(0xFF0000, 10, 20, 1);
+  	var wall3 = createWall(0xFF0000, 10, 20, 1);
+  	var wall4 = createWall(0xFF0000, 10, 20, 1);
+  	wall1.position.set(-10,0,-40);
+  	wall2.position.set(-3,0,-35);
+  	wall2.rotation.set(0,90,0);
+  	wall3.position.set(-6,0,-30);
+  	
+  	wall4.position.set(-15,0,-35);
+  	wall4.rotation.set(0,105,0);
+
+  	scene.add(wall1);
+  	scene.add(wall2);
+  	scene.add(wall3);
+  	scene.add(wall4);
+  }
+
 	function playGameMusic(){
 		// create an AudioListener and add it to the camera
 		var listener = new THREE.AudioListener();
