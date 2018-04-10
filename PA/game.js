@@ -149,6 +149,8 @@ The user moves a cube around the board trying to knock balls into a cone
 		addRoom1();
 		addRoom2();
 
+		createPortal();
+
 		//cone = createConeMesh(4,6);
 		//cone.position.set(10,3,7);
 		//scene.add(cone);
@@ -353,6 +355,81 @@ The user moves a cube around the board trying to knock balls into a cone
 			)
 		}
 	}*/
+
+	function createPortal(){
+
+
+
+		var portal1 = createWall(0xFF00FF, 3, 7, 3);
+		portal1.position.set(10,0,-20);
+		scene.add(portal1);
+
+		var portal2 = createWall(0xFF00FF, 3, 7, 3);
+		portal2.position.set(50,0,-40);
+		scene.add(portal2);
+
+		var portal3 = createWall(0xFF00FF, 3, 7, 3);
+		portal3.position.set(-50,0,-20);
+		scene.add(portal3);
+
+		var portal4 = createWall(0xFF00FF, 3, 7, 3);
+		portal4.position.set(70,0,20);
+		scene.add(portal4);
+
+		portal1.addEventListener( 'collision',
+			function( other_object, relative_velocity, relative_rotation, contact_normal ) {
+				if (other_object==avatar){
+					console.log("Portal Enter");
+					avatar.__dirtyPosition = true;
+					avatar.__dirtyRotation = true;
+					avatar.position.set(50,1,-36);
+					avatar.rotation.set(0,0,0);	
+				}
+
+			}
+		)
+
+		portal2.addEventListener( 'collision',
+			function( other_object, relative_velocity, relative_rotation, contact_normal ) {
+				if (other_object==avatar){
+					console.log("Portal Enter2");
+					avatar.__dirtyPosition = true;
+					avatar.__dirtyRotation = true;
+					avatar.position.set(-50,1,-16);
+					avatar.rotation.set(0,0,0);	
+				}
+
+			}
+		)
+
+		portal3.addEventListener( 'collision',
+			function( other_object, relative_velocity, relative_rotation, contact_normal ) {
+				if (other_object==avatar){
+					console.log("Portal Enter3");
+					avatar.__dirtyPosition = true;
+					avatar.__dirtyRotation = true;
+					avatar.position.set(70,1,22);
+					avatar.rotation.set(0,0,0);	
+				}
+
+			}
+		)
+
+		portal4.addEventListener( 'collision',
+			function( other_object, relative_velocity, relative_rotation, contact_normal ) {
+				if (other_object==avatar){
+					console.log("Portal Enter4");
+					avatar.__dirtyPosition = true;
+					avatar.__dirtyRotation = true;
+					avatar.position.set(10,1,-16);
+					avatar.rotation.set(0,0,0);
+				}
+
+			}
+		)
+
+
+	}
 
 	function addObstacles() {
     for(i=0; i<2; i++) {
@@ -588,10 +665,10 @@ The user moves a cube around the board trying to knock balls into a cone
 				var suzanne = new Physijs.BoxMesh( geometry, pmaterial );
 				console.log(JSON.stringify(suzanne.scale));// = new THREE.Vector3(4.0,1.0,1.0);
 				suzanne.position.x = 10;
-				suzanne.position.y = 5;
+				suzanne.position.y = 1;
 				suzanne.position.z = -40;
 				suzanne.castShadow = true;
-				avatarCam.position.set(0,40,-25);
+				avatarCam.position.set(0,10,-25);
 				avatarCam.lookAt(0,5,0);
 				suzanne.add(avatarCam);
 				scene.add(suzanne);
