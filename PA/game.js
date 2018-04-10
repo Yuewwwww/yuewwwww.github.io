@@ -229,6 +229,23 @@ The user moves a cube around the board trying to knock balls into a cone
 		)
 	}
 
+		function fallingBonus(){
+		var bonus = createBall(0x0000ff);
+		bonus.position.set(randN(70)-10,30,randN(70)-10);
+		bonus.name = "trash"
+		scene.add(bonus);
+
+		bonus.addEventListener( 'collision',
+			function( other_object, relative_velocity, relative_rotation, contact_normal ) {
+				if (other_object==avatar){
+					console.log("Bonus hit the avatar");
+					gameState.health = gameState.health + 1;
+					scene.remove(this)
+				}
+			}
+		)
+	}
+
 /*	function addTrash(numBalls) {
 		for(i=0; i<numBalls; i++) {
 			var ball = createBall(0xffff7d);
@@ -751,9 +768,19 @@ The user moves a cube around the board trying to knock balls into a cone
 
 				//randomly spawn trash
 				var trashSpawn = Math.floor(randN(180))
+				//console.log(trashSpawn);
 				if(trashSpawn == 1){
 					fallingTrash()
 				}
+
+				var bonusSpawn = Math.floor(randN(2500))
+
+				if(bonusSpawn==1){
+					console.log("BONUS HEALTH");
+					fallingBonus();
+				}
+
+
 			break;
 
 			default:
