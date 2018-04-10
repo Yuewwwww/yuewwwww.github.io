@@ -370,6 +370,11 @@ The user moves a cube around the board trying to knock balls into a cone
   }
 
   function addRoom1(){
+
+  	var ball1 = createBall(0x0000ff);
+  	ball1.position.set(34,0,-35);
+  	scene.add(ball1);
+
   	var wall1 = createWall(0xFF0000, 10, 20, 1);
   	var wall2 = createWall(0xFF0000, 10, 20, 1);
   	var wall3 = createWall(0xFF0000, 10, 20, 1);
@@ -386,9 +391,25 @@ The user moves a cube around the board trying to knock balls into a cone
   	scene.add(wall2);
   	scene.add(wall3);
   	scene.add(wall4);
+
+  	ball1.addEventListener( 'collision',
+			function( other_object, relative_velocity, relative_rotation, contact_normal ) {
+				if (other_object==avatar){
+					console.log("Bonus hit the avatar");
+					gameState.health = gameState.health + 1;
+					scene.remove(this)
+				}
+			}
+		)
+
   }
 
     function addRoom2(){
+
+    var ball2 = createBall(0xffff7d);
+  	ball2.position.set(-6,0,-35);
+  	scene.add(ball2);
+
   	var wall1 = createWall(0xFF0000, 10, 20, 1);
   	var wall2 = createWall(0xFF0000, 10, 20, 1);
   	var wall3 = createWall(0xFF0000, 10, 20, 1);
@@ -405,6 +426,19 @@ The user moves a cube around the board trying to knock balls into a cone
   	scene.add(wall2);
   	scene.add(wall3);
   	scene.add(wall4);
+
+  	ball2.addEventListener( 'collision',
+			function( other_object, relative_velocity, relative_rotation, contact_normal ) {
+				if (other_object==avatar){
+					console.log("Trash hit the avatar");
+					gameState.health -= 1;
+					if(gameState.health == 0){
+						gameState.scene = 'lose';
+					}
+					scene.remove(this)
+				}
+			}
+		)
   }
 
 	function playGameMusic(){
@@ -557,7 +591,7 @@ The user moves a cube around the board trying to knock balls into a cone
 				suzanne.position.y = 5;
 				suzanne.position.z = -40;
 				suzanne.castShadow = true;
-				avatarCam.position.set(0,7,-25);
+				avatarCam.position.set(0,40,-25);
 				avatarCam.lookAt(0,5,0);
 				suzanne.add(avatarCam);
 				scene.add(suzanne);
