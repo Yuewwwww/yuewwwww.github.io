@@ -373,19 +373,19 @@ The user moves a cube around the board trying to knock balls into a cone
 
 
 
-		var portal1 = createPortals('crate.gif', 3, 7, 3);
+		var portal1 = createPortals('portal2.jpg', 3, 7, 0.5);
 		portal1.position.set(10,0,-20);
 		scene.add(portal1);
 
-		var portal2 = createPortals('crate.gif', 3, 7, 3);
+		var portal2 = createPortals('portal2.jpg', 3, 7, 0.5);
 		portal2.position.set(50,0,-40);
 		scene.add(portal2);
 
-		var portal3 = createPortals('crate.gif', 3, 7, 3);
+		var portal3 = createPortals('portal2.jpg', 3, 7, 0.5);
 		portal3.position.set(-50,0,-20);
 		scene.add(portal3);
 
-		var portal4 = createPortals('crate.gif', 3, 7, 3);
+		var portal4 = createPortals('portal2.jpg', 3, 7, 0.5);
 		portal4.position.set(70,0,20);
 		scene.add(portal4);
 
