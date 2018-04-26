@@ -150,11 +150,6 @@ The user moves a cube around the board trying to knock balls into a cone
 
 		createPortal();
 		createNPC(-15, 3, 7);
-
-		//cone = createConeMesh(4,6);
-		//cone.position.set(10,3,7);
-		//scene.add(cone);
-
 	}
 
 
@@ -178,6 +173,7 @@ The user moves a cube around the board trying to knock balls into a cone
 	function addBalls(numBalls) {
 		for (i=0; i<numBalls; i++) {
 			var ball = createTBall('burger.png');
+			ball.name = "burger"
 			ball.position.set(randN(20)+15,30,randN(20)+15);
 			scene.add(ball);
 
@@ -197,6 +193,7 @@ The user moves a cube around the board trying to knock balls into a cone
 							gameState.level += 1;
 							gameState.score = 0;
 							avatarLevelUp();
+							removedBalls = 0;
 							console.log("Avatar level up, get slightly bigger, convert to random place.");
 						}
 						scene.remove(this);
@@ -838,21 +835,22 @@ Changed initial camera and avatar position.
 			gameState.score = 0;
 			gameState.level = 0;
 			gameState.health = 10;
-			addBalls(removedBalls);
 			//addTrash(removedTrash);
 			//addMagicBalls(removedMagicBalls);
 			//removedMagicBalls = 0;
 			//removedTrash = 0;
-			removedBalls = 0;
 
 			//remove all the trash
 			var selectedObjects = scene.getObjectByName("trash");
     		for(i=0; i<scene.children.length; i++) {
-    			if(scene.children[i].name == "trash"){
+    			if(scene.children[i].name == "trash" || (scene.children[i].name == "burger")){
     				scene.remove(scene.children[i]);
     				i--;
     			}
     		}
+
+    		addBalls(removedBalls);
+    		removedBalls = 0;
 
 			return;
 		}
@@ -862,21 +860,24 @@ Changed initial camera and avatar position.
 			gameState.level = 0;
 			gameState.score = 0;
 			gameState.health = 10;
-			addBalls(removedBalls);
 			//addTrash(removedTrash);
 			//addMagicBalls(removedMagicBalls);
 			//removedMagicBalls = 0;
 			//removedTrash = 0;
-			removedBalls = 0;
+			
 
 			//remove all the trash
 			var selectedObjects = scene.getObjectByName("trash");
     		for(i=0; i<scene.children.length; i++) {
-    			if(scene.children[i].name == "trash"){
+    			if((scene.children[i].name == "trash") || (scene.children[i].name == "burger")){
     				scene.remove(scene.children[i]);
     				i--;
     			}
+
     		}
+
+    		addBalls(removedBalls);
+    		removedBalls = 0;
 
 			return;
 		}
