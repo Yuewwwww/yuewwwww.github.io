@@ -966,9 +966,10 @@ Changed initial camera and avatar position.
 		if (controls.reset){
 			avatar.__dirtyPosition = true;
 			avatar.__dirtyRotation = true;
-			avatar.position.set(40,10,40);
+			avatar.position.set(randN(40),10,randN(40));
 			avatar.rotation.set(0,0,0);
-
+			avatar.setLinearVelocity(new THREE.Vector3(0,0,0));
+			avatar.setAngularVelocity(new THREE.Vector3(0,0,0));
 		}
 
 		if (controls.randomPlace){
