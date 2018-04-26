@@ -143,7 +143,7 @@ The user moves a cube around the board trying to knock balls into a cone
 		addDefeatBalls(1,position3);*/
 
 
-		addObstacles();
+		addObstacles(5);
 
 		addRoom1();
 		addRoom2();
@@ -439,10 +439,12 @@ The user moves a cube around the board trying to knock balls into a cone
 
 	}
 
-	function addObstacles() {
-    	for(i=0; i < 1; i++) {
-      		var obstacle1 = createWall(0x000000, 3, 2, 1);
+	function addObstacles(n) {
+    	for(i=0; i < n; i++) {
+      		var obstacle1 = createWall(0x696969, 3, 2, 1);
       		var obstacle2 = createWall(0x696969, 3, 2, 1);
+      		obstacle1.name = "wall";
+      		obstacle2.name = "wall";
 
      		 obstacle1.position.set(randN(70)-10, 1 , (randN(70)-10)* 0.8);
      		 obstacle2.position.set((randN(70)-10 )* 0.9,1,randN(70)-10);
@@ -452,7 +454,7 @@ The user moves a cube around the board trying to knock balls into a cone
      		 scene.add(obstacle1);
      		 scene.add(obstacle2);
      		 console.log("Add obstacles")
-    }
+    	}
   }
 
   function addRoom1(){
@@ -531,7 +533,7 @@ The user moves a cube around the board trying to knock balls into a cone
   		scene.remove(avatar);
   		createAvatar(gameState.level, false);
 			addBalls(removedBalls);
-  		addObstacles();
+  		addObstacles(5);
 			// createNPCs(gameState.level);
   	}
 
@@ -843,13 +845,14 @@ Changed initial camera and avatar position.
 			//remove all the trash
 			var selectedObjects = scene.getObjectByName("trash");
     		for(i=0; i<scene.children.length; i++) {
-    			if(scene.children[i].name == "trash" || (scene.children[i].name == "burger")){
+    			if(scene.children[i].name == "trash" || (scene.children[i].name == "burger") || (scene.children[i].name == "wall")){
     				scene.remove(scene.children[i]);
     				i--;
     			}
     		}
 
     		addBalls(3);
+    		addObstacles(5);
     		removedBalls = 0;
 
 			return;
@@ -869,7 +872,7 @@ Changed initial camera and avatar position.
 			//remove all the trash
 			var selectedObjects = scene.getObjectByName("trash");
     		for(i=0; i<scene.children.length; i++) {
-    			if((scene.children[i].name == "trash") || (scene.children[i].name == "burger")){
+    			if((scene.children[i].name == "trash") || (scene.children[i].name == "burger") || (scene.children[i].name == "wall")){
     				scene.remove(scene.children[i]);
     				i--;
     			}
@@ -877,6 +880,7 @@ Changed initial camera and avatar position.
     		}
 
     		addBalls(3);
+    		addObstacles(5);
     		removedBalls = 0;
 
 			return;
