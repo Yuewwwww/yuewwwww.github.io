@@ -174,7 +174,7 @@ The user moves a cube around the board trying to knock balls into a cone
 		for (i=0; i<numBalls; i++) {
 			var ball = createTBall('burger.png');
 			ball.name = "burger"
-			ball.position.set(randN(20)+15,30,randN(20)+15);
+			ball.position.set(randN(60)-10,30,randN(60)-10);
 			scene.add(ball);
 
 			ball.addEventListener( 'collision',
@@ -253,7 +253,7 @@ The user moves a cube around the board trying to knock balls into a cone
 					soundEffect('good.wav')
 					gameState.score = 10
 					gameState.scene = 'youwon';
-
+					
 				}
 			}
 		)
@@ -849,7 +849,7 @@ Changed initial camera and avatar position.
     			}
     		}
 
-    		addBalls(removedBalls);
+    		addBalls(3);
     		removedBalls = 0;
 
 			return;
@@ -876,7 +876,7 @@ Changed initial camera and avatar position.
 
     		}
 
-    		addBalls(removedBalls);
+    		addBalls(3);
     		removedBalls = 0;
 
 			return;
