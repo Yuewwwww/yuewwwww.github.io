@@ -6,8 +6,6 @@ The user moves a cube around the board trying to knock balls into a cone
 
 */
 
-
-
 	// First we declare the variables that hold the objects we need
 	// in the animation code
 	var scene, renderer;  // all threejs programs need these
@@ -991,6 +989,7 @@ Changed initial camera and avatar position.
 
 
 	function animate() {
+
 		requestAnimationFrame( animate );
 		switch(gameState.scene) {
 
