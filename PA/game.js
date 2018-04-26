@@ -12,6 +12,7 @@ The user moves a cube around the board trying to knock balls into a cone
 	var camera, avatarCam;  // we have two cameras in the main scene
 	var avatar;
 	var npc;
+	var guard;
 	// here are some mesh objects ...
 
 	var cone;
@@ -150,6 +151,7 @@ The user moves a cube around the board trying to knock balls into a cone
 
 		createPortal();
 		createNPC(-15, 3, 7);
+		createGuard(5, 0, 3);
 	}
 
 
@@ -532,9 +534,9 @@ The user moves a cube around the board trying to knock balls into a cone
   	function avatarLevelUp(){
   		scene.remove(avatar);
   		createAvatar(gameState.level, false);
-			addBalls(removedBalls);
+		addBalls(removedBalls);
   		addObstacles(5);
-			// createNPCs(gameState.level);
+  		createGuards(gameState.level);
   	}
 
 
@@ -770,9 +772,48 @@ Changed initial camera and avatar position.
 		scene.add(npc);
 	}
 
-	function createNPCs(level){
-		for (i = 0; i < level; i++) {
-			createNPC(randN(20)+15,30,randN(20)+15);
+
+	function createGuard(x,y,z){
+		var loader = new THREE.OBJLoader();
+		loader.load("../models/stormtrooper.obj",
+			function (  obj ) {
+				console.log("loading gd");
+				obj.scale.x = 5;
+				obj.scale.y = 5;
+				obj.scale.z = 5;
+
+				obj.position.x = x;
+				obj.position.y = y;
+				obj.position.z = z;
+				obj.castShadow = true;
+				obj.addEventListener('collision',function(other_object){
+					if (other_object == avatar){
+						soundEffect('evil.wav');
+						gameState.health--;
+						controls.randomPlace = true;
+					}
+
+					if(gameState.health == 0){
+						gameState.scene = 'lose';
+					}
+				})
+				obj.name = "guard"
+				scene.add(obj);
+
+				guard = obj;
+			},
+			function(xhr){
+				console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );
+			},
+			function(err){
+				console.log("error in loading: "+err);
+			}
+		)
+	}
+
+	function createGuards(level){
+		for (i = 0; i <= level; i++) {
+			createGuard(randN(20)+15,0,randN(20)+15);
 		}
 	}
 
@@ -845,7 +886,8 @@ Changed initial camera and avatar position.
 			//remove all the trash
 			var selectedObjects = scene.getObjectByName("trash");
     		for(i=0; i<scene.children.length; i++) {
-    			if(scene.children[i].name == "trash" || (scene.children[i].name == "burger") || (scene.children[i].name == "wall")){
+    			if(scene.children[i].name == "trash" || (scene.children[i].name == "burger") 
+    				|| (scene.children[i].name == "wall") || (scene.children[i].name == "guard")){
     				scene.remove(scene.children[i]);
     				i--;
     			}
@@ -853,6 +895,7 @@ Changed initial camera and avatar position.
 
     		addBalls(3);
     		addObstacles(5);
+    		createGuard(5, 0, 3);
     		removedBalls = 0;
 
 			return;
@@ -872,7 +915,8 @@ Changed initial camera and avatar position.
 			//remove all the trash
 			var selectedObjects = scene.getObjectByName("trash");
     		for(i=0; i<scene.children.length; i++) {
-    			if((scene.children[i].name == "trash") || (scene.children[i].name == "burger") || (scene.children[i].name == "wall")){
+    			if((scene.children[i].name == "trash") || (scene.children[i].name == "burger")
+    				|| (scene.children[i].name == "wall") || (scene.children[i].name == "guard")){
     				scene.remove(scene.children[i]);
     				i--;
     			}
@@ -881,6 +925,7 @@ Changed initial camera and avatar position.
 
     		addBalls(3);
     		addObstacles(5);
+    		createGuard(5, 0, 3);
     		removedBalls = 0;
 
 			return;
@@ -982,7 +1027,7 @@ Changed initial camera and avatar position.
 
 	function updateNPC(){
 		npc.lookAt(avatar.position);
-	  // npc.__dirtyPosition = true;
+	  npc.__dirtyPosition = true;
 		if (distanceVector(avatar, npc) < 20){
 			npc.material.color.setHex( 0xf44336 );
 			soundEffect('angry.wav');
