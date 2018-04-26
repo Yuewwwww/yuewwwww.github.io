@@ -209,7 +209,7 @@ The user moves a cube around the board trying to knock balls into a cone
 	}
 
 	function fallingTrash(){
-		var trash = createBall(0xffff7d);
+		var trash = createTBall('bottles.jpg');
 		trash.position.set(randN(70)-10,30,randN(70)-10);
 		trash.name = "trash"
 		scene.add(trash);
@@ -373,19 +373,19 @@ The user moves a cube around the board trying to knock balls into a cone
 
 
 
-		var portal1 = createWall(0xFF00FF, 3, 7, 3);
+		var portal1 = createPortals('crate.gif', 3, 7, 3);
 		portal1.position.set(10,0,-20);
 		scene.add(portal1);
 
-		var portal2 = createWall(0xFF00FF, 3, 7, 3);
+		var portal2 = createPortals('crate.gif', 3, 7, 3);
 		portal2.position.set(50,0,-40);
 		scene.add(portal2);
 
-		var portal3 = createWall(0xFF00FF, 3, 7, 3);
+		var portal3 = createPortals('crate.gif', 3, 7, 3);
 		portal3.position.set(-50,0,-20);
 		scene.add(portal3);
 
-		var portal4 = createWall(0xFF00FF, 3, 7, 3);
+		var portal4 = createPortals('crate.gif', 3, 7, 3);
 		portal4.position.set(70,0,20);
 		scene.add(portal4);
 
@@ -466,10 +466,10 @@ The user moves a cube around the board trying to knock balls into a cone
   	ball1.position.set(34,0,-35);
   	scene.add(ball1);
 
-  	var wall1 = createWall(0xFF0000, 10, 20, 1);
-  	var wall2 = createWall(0xFF0000, 10, 20, 1);
-  	var wall3 = createWall(0xFF0000, 10, 20, 1);
-  	var wall4 = createWall(0xFF0000, 10, 20, 1);
+  	var wall1 = createWall(0x696969, 10, 20, 1);
+  	var wall2 = createWall(0x696969, 10, 20, 1);
+  	var wall3 = createWall(0x696969, 10, 20, 1);
+  	var wall4 = createWall(0x696969, 10, 20, 1);
   	wall1.position.set(30,0,-40);
   	wall2.position.set(37,0,-35);
   	wall2.rotation.set(0,90,0);
@@ -501,10 +501,10 @@ The user moves a cube around the board trying to knock balls into a cone
   	ball2.position.set(-6,0,-35);
   	scene.add(ball2);
 
-  	var wall1 = createWall(0xFF0000, 10, 20, 1);
-  	var wall2 = createWall(0xFF0000, 10, 20, 1);
-  	var wall3 = createWall(0xFF0000, 10, 20, 1);
-  	var wall4 = createWall(0xFF0000, 10, 20, 1);
+  	var wall1 = createWall(0x696969, 10, 20, 1);
+  	var wall2 = createWall(0x696969, 10, 20, 1);
+  	var wall3 = createWall(0x696969, 10, 20, 1);
+  	var wall4 = createWall(0x696969, 10, 20, 1);
   	wall1.position.set(-10,0,-40);
   	wall2.position.set(-3,0,-35);
   	wall2.rotation.set(0,90,0);
@@ -537,7 +537,7 @@ The user moves a cube around the board trying to knock balls into a cone
   		createAvatar(gameState.level, false);
 			addBalls(removedBalls);
   		addObstacles();
-			createNPCs(gameState.level);
+			// createNPCs(gameState.level);
   	}
 
 
@@ -636,6 +636,19 @@ The user moves a cube around the board trying to knock balls into a cone
 	function createWall(color,w,h,d){
     	var geometry = new THREE.BoxGeometry( w, h, d);
     	var material = new THREE.MeshLambertMaterial( { color: color} );
+    	mesh = new Physijs.BoxMesh( geometry, material, 0 );
+    	//mesh = new Physijs.BoxMesh( geometry, material,0 );
+    	mesh.castShadow = true;
+    	return mesh;
+  }
+
+	function createPortals(image,w,h,d){
+    	var geometry = new THREE.BoxGeometry( w, h, d);
+			var texture = new THREE.TextureLoader().load( '../images/'+image );
+			texture.wrapS = THREE.RepeatWrapping;
+			texture.wrapT = THREE.RepeatWrapping;
+			texture.repeat.set( 1, 1);
+    	var material = new THREE.MeshLambertMaterial( { color: 0xffffff, map:texture, side:THREE.DoubleSide} );
     	mesh = new Physijs.BoxMesh( geometry, material, 0 );
     	//mesh = new Physijs.BoxMesh( geometry, material,0 );
     	mesh.castShadow = true;
